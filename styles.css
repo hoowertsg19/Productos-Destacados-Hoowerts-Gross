@@ -1,0 +1,369 @@
+/* --- Comentario --- */
+/*
+principalmente use devtools para ajustar los márgenes y paddings de las tarjetas de producto y del contenedor
+principal. Inicialmente, el espaciado era irregular en pantallas
+medianas. Ajustando el 'justify-content' en Flexbox a 'space-around' y añadiendo un
+margen de 15px a cada tarjeta, logré una distribución más equilibrada y visualmente
+agradable. También experimenté con diferentes valores de 'box-shadow' para las tarjetas,
+optando por una sombra sutil que las hiciera destacar sin sobrecargar el diseño.
+Finalmente, probé la transición en el botón 'Comprar Ahora' para que el cambio de
+color al pasar el ratón fuera más suave, mejorando la interacción del usuario.
+
+El diseño refleja un enfoque comercial efectivo mediante:
+
+-Claridad Visual: Estructura limpia con buen contraste y jerarquía visual, destacando títulos y precios.
+
+-Foco en el Producto: Imágenes prominentes y tarjetas organizadas que facilitan la comparación rápida de productos.
+
+-Llamada a la Acción Clara: Botones "Comprar Ahora" visibles, con efectos hover que invitan a la interacción.
+
+-Diseño Responsivo: Adaptabilidad a dispositivos móviles, asegurando una experiencia de usuario óptima en cualquier pantalla.
+
+-Interactividad: Transiciones suaves y diseño atractivo que guían al usuario hacia la conversión.
+*/
+
+/* --- Paleta de Colores y Fuente --- */
+:root {
+    --primary-color: #1a2b36;   /* Azul muy oscuro */
+    --secondary-color: #2c3e50; /* Azul noche */
+    --accent-color: #41729f;    /* Azul medio */
+    --bg-color: #f4f4f4;        /* Gris claro */
+    --text-color: #ffffff;
+    --font-family: 'Oswald', Arial, sans-serif;
+}
+
+/* --- Reset y Estilos Globales --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    line-height: 1.6;
+}
+
+/* --- Cabecera y Navegación --- */
+header {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 1rem 20px;
+}
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+    animation: fadeInDown 1s ease-out;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+nav ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+/* --- Animación para el Título --- */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Sección Sobre Nosotros --- */
+.sobre-nosotros {
+    background: var(--accent-color);
+    color: var(--text-color);
+    padding: 30px 20px;
+    text-align: center;
+}
+.sobre-nosotros .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.sobre-nosotros h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    animation: fadeIn 1s ease-out;
+}
+.sobre-nosotros p {
+    font-size: 1.1rem;
+}
+
+/* --- Sección Productos (Carrusel CSS) --- */
+.featured-products {
+    padding: 40px 20px;
+    text-align: center;
+}
+.featured-products h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+    animation: fadeIn 1s ease-out;
+}
+/* Contenedor del carrusel */
+.carousel-container {
+    position: relative;
+    max-width: 1000px; /* Ajusta el ancho máximo del carrusel */
+    margin: 0 auto;
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    scroll-behavior: smooth; /* Desplazamiento suave */
+    display: flex;
+    justify-content: center;
+    padding: 20px 0; /* Espaciado superior e inferior */
+}
+.carousel-track-container {
+    overflow: hidden;
+    position: relative;
+}
+/* Carrusel con animación */
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease-in-out;
+    transform-origin: center;
+    width: max-content; /* Ajusta el ancho al contenido */
+}
+/* Cada tarjeta ocupa el 33.33% del total */
+.carousel-track .product-card {
+    width: 33.33%;
+    flex-shrink: 0;
+    padding: 0 10px;
+}
+
+/* --- Tarjeta de Producto --- */
+.product-card {
+    flex: 1 1 calc(33.33% - 40px); /* Ocupa un tercio del ancho con espacio entre tarjetas */
+    max-width: 300px; /* Ancho máximo de cada tarjeta */
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    width: 250px; /* Ajusta el ancho de las tarjetas */
+    margin: 0 auto; /* Centra las tarjetas */
+    position: relative;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #ddd;
+}
+.card-content {
+    padding: 15px;
+    text-align: center; /* Centra el contenido */
+}
+.card-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+}
+.card-content p {
+    font-size: 0.9rem; /* Ajusta el tamaño de la descripción */
+    margin-bottom: 10px;
+    color: #555; /* Color más suave para la descripción */
+}
+.card-content .price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+.card-content button {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 15px;
+    font-size: 0.9rem; /* Ajusta el tamaño del botón */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.card-content button:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+/* Efecto de destacar el producto central */
+.carousel-track .product-card {
+    transform: scale(0.9);
+    opacity: 0.7;
+    filter: brightness(0.8);
+}
+
+.carousel-track .product-card:nth-child(3) {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: brightness(1.2);
+    z-index: 1;
+}
+
+/* Botones del carrusel */
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--secondary-color);
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-button:hover {
+    background-color: var(--accent-color);
+}
+
+.carousel-button.prev {
+    left: 10px;
+}
+
+.carousel-button.next {
+    right: 10px;
+}
+
+/* --- Animación del Carrusel --- */
+@keyframes slide {
+    0%, 20% { transform: translateX(0); }
+    25%, 45% { transform: translateX(-100%); }
+    50%, 70% { transform: translateX(-200%); }
+    75%, 100% { transform: translateX(0); }
+}
+
+/* --- Productos en Fila --- */
+.product-grid {
+    display: flex;
+    justify-content: space-around; /* Espaciado uniforme entre productos */
+    flex-wrap: wrap; /* Permite que los productos se ajusten en pantallas pequeñas */
+    gap: 20px;
+    margin: 20px 0;
+}
+
+/* --- Sección Contacto --- */
+.contacto {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 40px 20px;
+    text-align: center;
+}
+.contacto .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.contacto h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-out;
+}
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+.contact-item .icon {
+    font-size: 1.5rem;
+}
+
+/* --- Pie de Página --- */
+footer {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    text-align: center;
+    padding: 15px 20px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+/* --- Animación Genérica --- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- Diseño Responsivo --- */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    .header-container {
+        text-align: center;
+    }
+    header h1 {
+        font-size: 2rem;
+    }
+    .featured-products h2 {
+        font-size: 1.8rem;
+    }
+    .carousel-track .product-card {
+        padding: 0 5px;
+    }
+    .product-card {
+        flex: 1 1 calc(50% - 20px); /* Ocupa la mitad del ancho en pantallas medianas */
+    }
+}
+@media (max-width: 480px) {
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .product-card {
+        width: 90%;
+        flex: 1 1 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+    }
+    header h1 {
+        font-size: 1.8rem;
+    }
+    nav ul li a {
+        font-size: 1rem;
+    }
+    .card-content h3 {
+        font-size: 1.3rem;
+    }
+    .card-content p,
+    .card-content .price {
+        font-size: 1rem;
+    }
+}
